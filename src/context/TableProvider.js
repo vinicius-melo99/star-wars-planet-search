@@ -5,6 +5,7 @@ import TableContext from './TableContext';
 
 export default function TableProvider({ children }) {
   const [tableContent, setTableContent] = useState([]);
+  const [textFilter, setTextFilter] = useState('');
 
   useEffect(() => {
     async function fetchApi() {
@@ -14,9 +15,13 @@ export default function TableProvider({ children }) {
     fetchApi();
   }, []);
 
+  const handleFilterText = ({ target: { value } }) => {
+    setTextFilter(value);
+  };
+
   const results = useMemo(() => ({
-    tableContent,
-  }), [tableContent]);
+    tableContent, textFilter, handleFilterText,
+  }), [tableContent, textFilter]);
 
   return (
     <TableContext.Provider value={ results }>
