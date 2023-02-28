@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import TableContext from '../context/TableContext';
 
 export default function Table() {
-  // const [tableHeadContent, setTableHeadContent] = useState([]);
-  // const [tableBodyContent, setTableBodyContent] = useState([]);
   const {
     tableHeadContent,
     tableBodyContent,

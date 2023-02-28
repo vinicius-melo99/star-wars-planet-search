@@ -2,17 +2,17 @@ import React, { useContext } from 'react';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import TableContext from '../context/TableContext';
+import useApplyFilters from '../hooks/useApplyFilters';
 
 function Home() {
+  const { applyFilters } = useApplyFilters();
   const {
     handleFilterText,
     textFilter,
     columnFilter,
     usedNumericFilters,
-    handleNumericFilter,
-    applyFilters } = useContext(TableContext);
+    handleNumericFilter } = useContext(TableContext);
   const { column, comparsion, value } = usedNumericFilters;
-
   return (
     <div>
       <Header />

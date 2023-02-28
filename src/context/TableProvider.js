@@ -7,13 +7,14 @@ export default function TableProvider({ children }) {
   const [tableHeadContent, setTableHeadContent] = useState([]);
   const [tableBodyContent, setTableBodyContent] = useState([]);
   const [textFilter, setTextFilter] = useState('');
-  const [columnFilter] = useState([
+  const [columnFilter, setColumnFilter] = useState([
     'population',
     'orbital_period',
     'diameter',
     'rotation_period',
     'surface_water',
   ]);
+  const [originalColumnFilter] = useState([...columnFilter]);
   const [originalTableContent, setOriginalTableContent] = useState([]);
   const [usedNumericFilters, setUsedNumericFilters] = useState({
     column: '', comparsion: '', value: 0,
@@ -37,32 +38,6 @@ export default function TableProvider({ children }) {
     fetchApi();
   }, []);
 
-  const applyFilters = useCallback(() => {
-    const { column, comparsion, value } = usedNumericFilters;
-    let newFilteredTableContent = [];
-    switch (comparsion) {
-    case 'menor que':
-      newFilteredTableContent = tableBodyContent.filter((planet) => (
-        Number(planet[column]) < value
-      ));
-      break;
-    case 'maior que':
-      console.log(tableBodyContent);
-      newFilteredTableContent = tableBodyContent.filter((planet) => (
-        Number(planet[column]) > value
-      ));
-      break;
-    case 'igual a':
-      newFilteredTableContent = tableBodyContent.filter((planet) => (
-        planet[column] === value
-      ));
-      break;
-    default:
-    }
-
-    setTableBodyContent([...newFilteredTableContent]);
-  }, [tableBodyContent, usedNumericFilters]);
-
   const handleFilterText = ({ target: { value } }) => {
     setTextFilter(value);
   };
@@ -81,9 +56,12 @@ export default function TableProvider({ children }) {
     originalTableContent,
     columnFilter,
     usedNumericFilters,
+    originalColumnFilter,
     handleFilterText,
     handleNumericFilter,
-    applyFilters,
+    setTableBodyContent,
+    setColumnFilter,
+    setUsedNumericFilters,
   }), [textFilter,
     originalTableContent,
     tableHeadContent,
@@ -91,7 +69,8 @@ export default function TableProvider({ children }) {
     columnFilter,
     usedNumericFilters,
     handleNumericFilter,
-    applyFilters]);
+    originalColumnFilter,
+  ]);
 
   return (
     <TableContext.Provider value={ results }>
