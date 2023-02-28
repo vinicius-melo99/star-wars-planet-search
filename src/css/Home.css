@@ -38,3 +38,7 @@ table th {
 table td {
   padding: 20px;
 }
+
+.applied-filters-container {
+  color: white;
+}

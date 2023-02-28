@@ -19,6 +19,7 @@ export default function TableProvider({ children }) {
   const [usedNumericFilters, setUsedNumericFilters] = useState({
     column: '', comparsion: '', value: 0,
   });
+  const [allAppliedFilters, setAllAppliedFilters] = useState([]);
 
   useEffect(() => {
     async function fetchApi() {
@@ -57,19 +58,22 @@ export default function TableProvider({ children }) {
     columnFilter,
     usedNumericFilters,
     originalColumnFilter,
+    allAppliedFilters,
     handleFilterText,
     handleNumericFilter,
     setTableBodyContent,
     setColumnFilter,
     setUsedNumericFilters,
+    setAllAppliedFilters,
   }), [textFilter,
     originalTableContent,
     tableHeadContent,
     tableBodyContent,
     columnFilter,
     usedNumericFilters,
-    handleNumericFilter,
     originalColumnFilter,
+    allAppliedFilters,
+    handleNumericFilter,
   ]);
 
   return (

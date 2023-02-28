@@ -8,7 +8,9 @@ const useApplyFilters = () => {
     setTableBodyContent,
     setColumnFilter,
     columnFilter,
-    setUsedNumericFilters } = useContext(TableContext);
+    setUsedNumericFilters,
+    setAllAppliedFilters,
+    allAppliedFilters } = useContext(TableContext);
 
   const removeAplliedFilterFromList = (column) => {
     const newColumnFilterList = columnFilter.filter((element) => element !== column);
@@ -23,6 +25,7 @@ const useApplyFilters = () => {
   const applyFilters = () => {
     const { column, comparsion, value } = usedNumericFilters;
     let newFilteredTableContent = [];
+
     switch (comparsion) {
     case 'menor que':
       newFilteredTableContent = tableBodyContent.filter((planet) => (
@@ -42,6 +45,7 @@ const useApplyFilters = () => {
     default:
     }
 
+    setAllAppliedFilters([...allAppliedFilters, `${column} ${comparsion} ${value}`]);
     setTableBodyContent([...newFilteredTableContent]);
     removeAplliedFilterFromList(column);
   };

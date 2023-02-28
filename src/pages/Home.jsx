@@ -1,17 +1,21 @@
 import React, { useContext } from 'react';
+import AppliedFilters from '../components/AppliedFilters';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import TableContext from '../context/TableContext';
 import useApplyFilters from '../hooks/useApplyFilters';
+import useRemoveFilter from '../hooks/useRemoveFilters';
 
 function Home() {
   const { applyFilters } = useApplyFilters();
+  const { removeAllFilters } = useRemoveFilter();
   const {
     handleFilterText,
     textFilter,
     columnFilter,
     usedNumericFilters,
-    handleNumericFilter } = useContext(TableContext);
+    handleNumericFilter,
+    allAppliedFilters } = useContext(TableContext);
   const { column, comparsion, value } = usedNumericFilters;
   return (
     <div>
@@ -59,7 +63,14 @@ function Home() {
           >
             Filtar
           </button>
+          <button
+            data-testid="button-remove-filters"
+            onClick={ removeAllFilters }
+          >
+            Remover Filtros
+          </button>
         </div>
+        { allAppliedFilters.length > 0 && <AppliedFilters /> }
         <div className="table-container">
           <Table />
         </div>
