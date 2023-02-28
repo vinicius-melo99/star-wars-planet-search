@@ -1,18 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import TableContext from '../context/TableContext';
 
 export default function Table() {
-  const [tableHeadContent, setTableHeadContent] = useState([]);
-  const [tableBodyContent, setTableBodyContent] = useState([]);
-  const { tableContent, textFilter } = useContext(TableContext);
-
-  useEffect(() => {
-    if (tableContent.length !== 0) {
-      setTableHeadContent([...Object.keys(tableContent[0])
-        . filter((element) => element !== 'residents')]);
-      setTableBodyContent([...tableContent]);
-    }
-  }, [tableContent]);
+  // const [tableHeadContent, setTableHeadContent] = useState([]);
+  // const [tableBodyContent, setTableBodyContent] = useState([]);
+  const {
+    tableHeadContent,
+    tableBodyContent,
+    textFilter } = useContext(TableContext);
 
   return (
     <table>

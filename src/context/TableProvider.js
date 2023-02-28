@@ -1,27 +1,97 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import fetchStarWarsApi from '../helpers/fetchStarWarsApi';
 import TableContext from './TableContext';
 
 export default function TableProvider({ children }) {
-  const [tableContent, setTableContent] = useState([]);
+  const [tableHeadContent, setTableHeadContent] = useState([]);
+  const [tableBodyContent, setTableBodyContent] = useState([]);
   const [textFilter, setTextFilter] = useState('');
+  const [columnFilter] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
+  const [originalTableContent, setOriginalTableContent] = useState([]);
+  const [usedNumericFilters, setUsedNumericFilters] = useState({
+    column: '', comparsion: '', value: 0,
+  });
 
   useEffect(() => {
     async function fetchApi() {
       const { results } = await fetchStarWarsApi();
-      setTableContent([...results]);
+      setOriginalTableContent([...results]);
+      if (results.length !== 0) {
+        setTableHeadContent([...Object.keys(results[0])
+          . filter((element) => element !== 'residents')]);
+        setTableBodyContent([...results]);
+        setUsedNumericFilters({
+          column: 'population',
+          comparsion: 'maior que',
+          value: 0,
+        });
+      }
     }
     fetchApi();
   }, []);
+
+  const applyFilters = useCallback(() => {
+    const { column, comparsion, value } = usedNumericFilters;
+    let newFilteredTableContent = [];
+    switch (comparsion) {
+    case 'menor que':
+      newFilteredTableContent = tableBodyContent.filter((planet) => (
+        Number(planet[column]) < value
+      ));
+      break;
+    case 'maior que':
+      console.log(tableBodyContent);
+      newFilteredTableContent = tableBodyContent.filter((planet) => (
+        Number(planet[column]) > value
+      ));
+      break;
+    case 'igual a':
+      newFilteredTableContent = tableBodyContent.filter((planet) => (
+        planet[column] === value
+      ));
+      break;
+    default:
+    }
+
+    setTableBodyContent([...newFilteredTableContent]);
+  }, [tableBodyContent, usedNumericFilters]);
 
   const handleFilterText = ({ target: { value } }) => {
     setTextFilter(value);
   };
 
+  const handleNumericFilter = useCallback(({ target: { value, name } }) => {
+    setUsedNumericFilters({
+      ...usedNumericFilters,
+      [name]: value,
+    });
+  }, [usedNumericFilters]);
+
   const results = useMemo(() => ({
-    tableContent, textFilter, handleFilterText,
-  }), [tableContent, textFilter]);
+    tableHeadContent,
+    tableBodyContent,
+    textFilter,
+    originalTableContent,
+    columnFilter,
+    usedNumericFilters,
+    handleFilterText,
+    handleNumericFilter,
+    applyFilters,
+  }), [textFilter,
+    originalTableContent,
+    tableHeadContent,
+    tableBodyContent,
+    columnFilter,
+    usedNumericFilters,
+    handleNumericFilter,
+    applyFilters]);
 
   return (
     <TableContext.Provider value={ results }>
