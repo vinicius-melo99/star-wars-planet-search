@@ -20,6 +20,8 @@ export default function TableProvider({ children }) {
     column: '', comparsion: '', value: 0,
   });
   const [allAppliedFilters, setAllAppliedFilters] = useState([]);
+  const [order, setOrder] = useState({ column: 'population', sort: 'ASC' });
+  const [columnSort] = useState([...columnFilter]);
 
   useEffect(() => {
     async function fetchApi() {
@@ -50,6 +52,13 @@ export default function TableProvider({ children }) {
     });
   }, [usedNumericFilters]);
 
+  const handleSortSettings = useCallback(({ target: { value, name } }) => {
+    setOrder({
+      ...order,
+      [name]: value,
+    });
+  }, [order]);
+
   const results = useMemo(() => ({
     tableHeadContent,
     tableBodyContent,
@@ -59,12 +68,16 @@ export default function TableProvider({ children }) {
     usedNumericFilters,
     originalColumnFilter,
     allAppliedFilters,
+    order,
+    columnSort,
     handleFilterText,
     handleNumericFilter,
+    handleSortSettings,
     setTableBodyContent,
     setColumnFilter,
     setUsedNumericFilters,
     setAllAppliedFilters,
+    setOrder,
   }), [textFilter,
     originalTableContent,
     tableHeadContent,
@@ -73,7 +86,10 @@ export default function TableProvider({ children }) {
     usedNumericFilters,
     originalColumnFilter,
     allAppliedFilters,
+    order,
+    columnSort,
     handleNumericFilter,
+    handleSortSettings,
   ]);
 
   return (

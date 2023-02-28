@@ -42,3 +42,7 @@ table td {
 .applied-filters-container {
   color: white;
 }
+
+.numeric-value-filter {
+  color: white;
+}

@@ -5,18 +5,25 @@ import Table from '../components/Table';
 import TableContext from '../context/TableContext';
 import useApplyFilters from '../hooks/useApplyFilters';
 import useRemoveFilter from '../hooks/useRemoveFilters';
+import useSortOrder from '../hooks/useSortOrder';
 
 function Home() {
   const { applyFilters } = useApplyFilters();
   const { removeAllFilters } = useRemoveFilter();
+  const { sortOrder } = useSortOrder();
   const {
     handleFilterText,
     textFilter,
     columnFilter,
     usedNumericFilters,
     handleNumericFilter,
-    allAppliedFilters } = useContext(TableContext);
+    allAppliedFilters,
+    columnSort,
+    handleSortSettings,
+    order } = useContext(TableContext);
   const { column, comparsion, value } = usedNumericFilters;
+  const { column: columnNameToSort } = order;
+
   return (
     <div>
       <Header />
@@ -69,6 +76,49 @@ function Home() {
           >
             Remover Filtros
           </button>
+          <select
+            name="column"
+            data-testid="column-sort"
+            onChange={ handleSortSettings }
+            value={ columnNameToSort }
+          >
+            { columnSort.map((columnName, index) => (
+              <option key={ index }>
+                { columnName }
+              </option>
+            )) }
+          </select>
+
+          <label htmlFor="sort1">
+            Ascendente
+            <input
+              data-testid="column-sort-input-asc"
+              id="sort1"
+              name="sort"
+              value="ASC"
+              type="radio"
+              onClick={ handleSortSettings }
+            />
+          </label>
+          <label htmlFor="sort2">
+            Descendente
+            <input
+              data-testid="column-sort-input-desc"
+              id="sort2"
+              name="sort"
+              value="DESC"
+              type="radio"
+              onClick={ handleSortSettings }
+            />
+          </label>
+
+          <button
+            data-testid="column-sort-button"
+            onClick={ sortOrder }
+          >
+            Ordenar
+          </button>
+
         </div>
         { allAppliedFilters.length > 0 && <AppliedFilters /> }
         <div className="table-container">
