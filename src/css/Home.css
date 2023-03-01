@@ -14,20 +14,29 @@ body {
 }
 
 header {
-  padding: 40px 2%;
+  padding: 30px 2%;
   text-align: center;
 }
 
+header p {
+  color: white;
+  font-size: 14px;
+  letter-spacing: 9px;
+}
+
 .table-container {
-  max-height: 500px;
-  max-width: 1100px;
+  margin-top: 50px;
+  max-height: 320px;
+  max-width: 960px;
   overflow: scroll;
-  padding: 40px;
 }
 
 table {
+  border-collapse: collapse;
   color: white;
+  font-size: 14px;
   text-align: left;
+  width: 100%;
 }
 
 table th {
@@ -36,6 +45,7 @@ table th {
 }
 
 table td {
+  border-bottom: 1px solid white;
   padding: 20px;
 }
 

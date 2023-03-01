@@ -43,7 +43,6 @@ const useRemoveFilter = () => {
       default:
       }
     });
-    console.log(updatedList);
     setTableBodyContent([...updatedList]);
   };
 
