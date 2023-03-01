@@ -1,8 +1,12 @@
 body {
   align-items: center;
+  background-attachment: fixed;
   background-color: black;
   background-image: url('../images/star-wars-bg.jpg');
+  background-repeat: no-repeat;
   background-size: cover;
+
+  /* position: fixed; */
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -10,7 +14,8 @@ body {
 }
 
 .logo-img {
-  width: 250px;
+  margin-top: calc(50vh - 140px);
+  width: 500px;
 }
 
 header {
@@ -20,15 +25,44 @@ header {
 
 header p {
   color: white;
-  font-size: 14px;
-  letter-spacing: 9px;
+  font-size: 20px;
+  letter-spacing: 25px;
+  margin-bottom: 55vh;
+  margin-left: 30px;
+  text-align: center;
 }
 
 .table-container {
-  margin-top: 50px;
-  max-height: 320px;
-  max-width: 960px;
+  margin-bottom: 5px;
+  margin-top: 25px;
+  max-height: 60vh;
+  max-width: 1200px;
   overflow: scroll;
+}
+
+.text-filter-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.search-icon {
+  left: -35px;
+  position: relative;
+}
+
+.text-filter-container input {
+  background-color: transparent;
+  border: 1px solid  #f0d429;
+  border-radius: 20px;
+  color: white;
+  font-size: 18px;
+  max-width: 650px;
+  outline: none;
+  padding: 5px 10px;
+  width: 40%;
+
 }
 
 table {
@@ -37,6 +71,8 @@ table {
   font-size: 14px;
   text-align: left;
   width: 100%;
+
+  /* border: 1px solid white; */
 }
 
 table th {
@@ -46,13 +82,114 @@ table th {
 
 table td {
   border-bottom: 1px solid white;
-  padding: 20px;
+  padding: 40px 20px;
+}
+
+.numeric-value-filter {
+  align-items: center;
+  color: white;
+
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.main-table-container {
+  border: 1px solid #f0d429;
+  border-radius: 20px;
+  margin-bottom: 40px;
+
+  /* padding: 20px; */
+}
+
+.numeric-value-filter select {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none;
+  padding-bottom: 5px;
+  width: 145px;
+}
+
+.numeric-value-filter select option {
+  background-color: transparent;
+  color: black;
+}
+
+.numeric-value-filter .input-type-number {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  outline: none;
+  padding: 8px;
+  width: 90px;
+}
+
+.numeric-value-filter label {
+  cursor: pointer;
+}
+
+.numeric-value-filter .radio-button-sort {
+  cursor: pointer;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.numeric-value-filter button {
+  background-color: transparent;
+  border: 1px solid #fae60a;
+  border-radius: 5px;
+  color: #fae60a;
+  cursor: pointer;
+  height: 50px;
+  outline: none;
+  width: 80px;
+}
+
+.numeric-value-filter button:hover {
+  background-color: #dbc90050;
+  color: white;
+}
+
+.numeric-value-filter button:active {
+  background-color: #dbc900b2;
 }
 
 .applied-filters-container {
   color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 2% 0;
 }
 
-.numeric-value-filter {
+.applied-filters-container p {
+  margin-bottom: 5px;
+}
+
+.applied-filters-container div {
+  padding: 3px 0;
+}
+
+.remove-filter-button {
+  background-color: transparent;
+  border: 1px solid red;
+  border-radius: 20px;
+  color: red;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 3px 7px;
+}
+
+.remove-filter-button:hover {
+  background-color: rgb(131, 5, 5);
   color: white;
+}
+
+.remove-filter-button:active {
+  background-color: red;
 }

@@ -15,6 +15,7 @@ export default function AppliedFilters() {
               <div data-testid="filter" key={ index }>
                 <span>{filter}</span>
                 <button
+                  id={ filter.split(' ')[0] }
                   name={ filter.split(' ')[0] }
                   className="remove-filter-button"
                   onClick={ removeFilter }

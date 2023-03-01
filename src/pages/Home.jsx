@@ -1,3 +1,4 @@
+import { BiSearch } from 'react-icons/bi';
 import React, { useContext } from 'react';
 import AppliedFilters from '../components/AppliedFilters';
 import Header from '../components/Header';
@@ -35,6 +36,7 @@ function Home() {
             onChange={ handleFilterText }
             value={ textFilter }
           />
+          <BiSearch color="white" size="24px" className="search-icon" />
         </div>
         <div className="numeric-value-filter">
           <select
@@ -63,6 +65,7 @@ function Home() {
             type="number"
             value={ value }
             onChange={ handleNumericFilter }
+            className="input-type-number"
           />
           <button
             data-testid="button-filter"
@@ -98,6 +101,7 @@ function Home() {
               value="ASC"
               type="radio"
               onClick={ handleSortSettings }
+              className="radio-button-sort"
             />
           </label>
           <label htmlFor="sort2">
@@ -109,6 +113,7 @@ function Home() {
               value="DESC"
               type="radio"
               onClick={ handleSortSettings }
+              className="radio-button-sort"
             />
           </label>
 
